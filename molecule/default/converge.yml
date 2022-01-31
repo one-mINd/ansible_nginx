@@ -13,6 +13,17 @@
         - charset utf-8
         - client_max_body_size 32M
         - keepalive_timeout 5
+        - ssl on
+        - ssl_certificate /etc/ssl_certs/{{ nginx_mainsite }}/fullchain.pem
+        - ssl_certificate_key /etc/ssl_certs/{{ nginx_mainsite }}/private.pem
+        - ssl_dhparam /etc/ssl_certs/dhparam.pem
+        - client_max_body_size 15m
+        - add_header Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        - keepalive_timeout 0
+        - proxy_read_timeout 5s
+        - proxy_send_timeout 5s
+        - resolver_timeout 5s
+        - client_body_buffer_size 100k
 
   pre_tasks:
     - name: Update apt cache.
